@@ -5,7 +5,7 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-  const [nombre, setNombre] = useState("")
+  const [nombre, setNombre] = useState("") //se declara una variable constante y se declara la funcion con la que se seteara su valor y el useState es el estado inicial de la variable
   //Toda la logica del componente vive aqui antes del return
   return (
     <>
@@ -20,8 +20,9 @@ function App() {
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() =>{ 
-          setCount((count) => count + 1)}}>
-            setNombre{(nombre)=>nombre + "A-"}
+          setCount((count) => count + 1)
+          setNombre((nombre)=> nombre + "A-")
+          }}>
           count is {count}
         </button>
         <p>
