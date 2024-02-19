@@ -1,11 +1,13 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import ListaTareas from "./ListaTareas";
+import OtraListaTareas from "./OtraListaTareas";
 
 const Tareas = () => {
   const [tarea, setTarea] = useState("");
-  const [tareas, setTareas] = useState([]);
-  console.log(tareas);
+  const [tareas, setTareas] = useState(JSON.parse(localStorage.getItem("task")) || []);
+  //console.log(tareas);
   return (
     <div>
       <div className="container my-5 py-5 d-flex justify-content-center">
@@ -15,9 +17,10 @@ const Tareas = () => {
             <Form.Control
               type="text"
               onChange={(e) => {
-                console.log(e.currentTarget.value);
+                //console.log(e.currentTarget.value);
                 setTarea(e.currentTarget.value);
               }}
+              value={tarea}
             />
           </Form.Group>
 
@@ -27,6 +30,8 @@ const Tareas = () => {
             className="my-3"
             onClick={() => {
               setTareas([...tareas, tarea]); //operador espred desmenuza y lo que tiene despues de la coma lo agrega como si fuera un push
+              setTarea("");
+              localStorage.setItem("task", JSON.stringify([...tareas, tarea]))
             }}
           >
             Guardar Tarea
@@ -34,18 +39,8 @@ const Tareas = () => {
         </Form>
       </div>
 
-      <div className="container">
-        <h3>Lista de tareas a realizar</h3>
-        <ol>
-          {tareas.map((elemento, index) => {
-            return (
-              <div key={index}>
-                <li>{elemento}</li>
-              </div>
-            );
-          })}
-        </ol>
-      </div>
+            <ListaTareas tareas={tareas} setTareas={setTareas}></ListaTareas>;
+            {/* <OtraListaTareas tareas={tareas} setTareas={setTareas}></OtraListaTareas> */}
     </div>
   );
 };
